@@ -4,24 +4,24 @@
 
 (DEFUN B(ELEM LST)
     (COND
-        ((EQL ELEM '+) (cons 
+        ((EQL ELEM '+) (append 
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
-        ((EQL ELEM '-)(cons 
+        ((EQL ELEM '-)(append 
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
-        ((EQL ELEM '*)(cons 
+        ((EQL ELEM '*)(append
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
-        ((EQL ELEM '/)(cons 
+        ((EQL ELEM '/)(append
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
         (T
-            (CONS ELEM LST) 
+            (CONS ELEM NIL)
         )
     )
 )
@@ -35,6 +35,7 @@
         )
     )
 )
+
 (DEFUN UNCDR(LST)
     (COND
         ((NULL (CDR LST)) 
@@ -46,6 +47,6 @@
     )
 )
 
-(SETQ ACAB '(+ * 3 2 5))
-(print ACAB)
-(PRINT (A ACAB))
+(SETQ test '(- * 5 6 3))
+(print test)
+(PRINT (A test))
