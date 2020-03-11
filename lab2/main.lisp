@@ -4,19 +4,19 @@
 
 (DEFUN B(ELEM LST)
     (COND
-        ((EQL ELEM '+) (append 
+        ((EQL ELEM '+) (cons 
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
-        ((EQL ELEM '-)(append 
+        ((EQL ELEM '-)(cons 
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
-        ((EQL ELEM '*)(append
+        ((EQL ELEM '*)(cons
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
-        ((EQL ELEM '/)(append
+        ((EQL ELEM '/)(cons
                             (B (CAR (UNCDR LST)) (CDR (UNCDR LST))) 
                             (CONS ELEM (cons (UNCAR LST) nil )))
                         )
