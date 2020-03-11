@@ -1,25 +1,26 @@
-
-print("start")
 def forall(lst):
     prev = 999999999999
-    for key, val in lst:
-        for subKey, subVal in lst:
-            if(key == subkey):
-                pass
-            nxt = maxOfI(key, subVal, gr, [], 0)
+    for key, _ in lst.items():
+        for subKey, subVal in lst.items():
+            if(key == subKey):
+                continue
+            nxt = maxOfI(key, subKey, lst, list(key))
+            print(nxt)
             prev = min (nxt, prev)
     return prev
 
-def maxOfI(cur, end, gr, seq, amount):
+
+def maxOfI(cur, end, gr, seq):
     prev = 0
     for i in gr[cur]:
-        if(i is in seq):
+        if(i in seq):
             continue
         if(i == end):
-            amount += 1
+            amount = len(seq) + 1
             prev = max(prev, amount)
-        else:
-            prev = max(prev, maxOfI (i, end, gr, seq + i, amount + 1))
+        else:            
+            seq.append(i) 
+            prev = max(prev, maxOfI(i, end, gr, seq))
     return prev        
 
 lst = {"a": ("b", "c"),
@@ -29,5 +30,4 @@ lst = {"a": ("b", "c"),
         "e" : ("c", "d", "f"),
         "f" : ("c", "e"),
         "g" : ("b", "d")}
-print("acab")
 print(forall(lst))
