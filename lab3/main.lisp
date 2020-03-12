@@ -12,7 +12,7 @@
 (defun getNode (nodeName graph)
     (cond 
         ((EQL (caar graph) nodeName)
-            (cdar graph)
+            (cadar graph)
         )
         ((NULL (caar graph))
             nil
@@ -106,44 +106,11 @@
 )
 (print (cons '(revert) (revert '(A C A B))))
 
-(defun gogo (seq gr derect amount forks prev)
-        (forEach (unRepid forks seq) (function (lambda (x) (derect seq gr amount prev x))))
-)
 
-(defun MyForMax (cur end gr seq &OPTIONAL (prev 0))
-    (max (forCycle1 
-        (getNode cur gr) (function (lambda (i) (maxOfI i end gr seq))) gr
-    ) prev )
-)
 
-(defun forCycle1 (seq func gr &OPTIONAL (amount 0))
-    (cond
-        ((NULL (car seq))
-            amount
-        )
-        (T
-            (max (forCycle1 (cdr seq) func gr (funcall func (car seq))) amount)
-        )
-
-    )
-)
-
-(defun maxOfI(cur end node seq)
-    (cond
-        ((isIn cur seq)
-            0
-        )
-        ((EQL cur end)
-            (myCount seq)
-        )
-        (T
-            (MyForMax (car node) end gr (append seq (car node)) (myCount (append seq (car node))))
-        )
-    )
-)
-
+;; maxOfI
 (defun start (begin end gr seq)
-    (forEach (getNode begin gr) (function (lambda (i)(conditions i end gr seq))))
+    (forEach (unRepid (getNode begin gr) seq) (function (lambda (i)(conditions i end gr seq))))
 )
 
 (defun conditions (begin end gr seq)
@@ -151,14 +118,20 @@
         ((EQL begin end)
             (myCount seq)
         )
+        ((NULL begin)
+            0
+        )
         (T
-            (start begin end gr (append seq begin))
+            (start begin end gr (append seq (cons begin nil) ))
         )
     )
 )
 
 (defun forEach (seq func)
     (cond
+        ((ATOM seq)
+            (funcall func seq)
+        )
         ((NULL (cdr seq))
             (funcall func (car seq))
         )
@@ -167,47 +140,9 @@
         )
     )
 )
-
-;; (forEach '(A C A B) (function print))
-;; (trace forCycle1)
-;; (trace maxOfI)
+;; // maxOfI
+(trace start)
+(trace unRepid)
 (trace forEach)
+(trace conditions)
 (print (start 'A 'B gr '(A)))
-
-;; ;; (defun degree (deCon graph)
-;; ;;     (cond
-;; ;;         ((NULL (car graph))
-;; ;;             nil
-;; ;;         )
-;; ;;         (T
-;; ;;             (degree (fork (cdar graph) (cdr graph) (caadr graph) (cons (caar graph) nil) (cdr graph))
-;; ;;         )
-
-;; ;;     )
-;; ;; )
-
-;; ;; (defun findMinPath(forks graph destenation seq amount)
-;; ;;     (cond
-;; ;;         ((isIn destenation forks)
-;; ;;             (+ amount 1) 
-;; ;;         )
-;;         (NULL (car forks)
-;;             ()
-;;         )
-;;         (T
-            
-;;         )
-;;     )
-;; )
-
-;; (defun forEach (seq lambdaFunction)
-;;     (cond
-;;         ((NULL seq)
-;;             nil
-;;         )
-;;         (T
-;;             (lambdaFunction ca)
-;;         )
-
-;;     )
-;; )
