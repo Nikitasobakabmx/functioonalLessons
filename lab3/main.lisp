@@ -142,10 +142,37 @@
     )
 )
 
+(defun start (begin end gr seq)
+    (forEach (getNode begin gr) (function (lambda (i)(conditions i end gr seq))))
+)
+
+(defun conditions (begin end gr seq)
+    (cond
+        ((EQL begin end)
+            (myCount seq)
+        )
+        (T
+            (start begin end gr (append seq begin))
+        )
+    )
+)
+
+(defun forEach (seq func)
+    (cond
+        ((NULL (cdr seq))
+            (funcall func (car seq))
+        )
+        (T
+            (max (forEach (cdr seq) func) (funcall func (car seq)))
+        )
+    )
+)
+
+;; (forEach '(A C A B) (function print))
 ;; (trace forCycle1)
 ;; (trace maxOfI)
-;; (trace MyForMax)
-(print (MyForMax 'A 'B gr '(A)))
+(trace forEach)
+(print (start 'A 'B gr '(A)))
 
 ;; ;; (defun degree (deCon graph)
 ;; ;;     (cond

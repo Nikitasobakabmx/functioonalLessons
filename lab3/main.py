@@ -17,13 +17,15 @@ def maxOfI(cur, end, gr, seq):
             continue
         if(i == end):
             #1A
-            amount = len(seq) + 1
+            print("Hello")
+            amount = len(seq)
             prev = max(prev, amount)
         else: 
             #B          
             seq.append(i) 
             prev = max(prev, maxOfI(i, end, gr, seq))
-    return prev        
+    return prev    
+    
 
 lst = {"a": ("b", "c"),
         "b" : ("a", "b", "c", "d", "g"),
@@ -32,5 +34,6 @@ lst = {"a": ("b", "c"),
         "e" : ("c", "d", "f"),
         "f" : ("c", "e"),
         "g" : ("b", "d")}
-print(forall(lst))
+#print(forall(lst))
 print(maxOfI("a", "b", lst, ["a"]))
+print(len("acab"))
