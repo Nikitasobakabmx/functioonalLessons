@@ -5,7 +5,7 @@ def forall(lst):
             if(key == subKey):
                 continue
             nxt = maxOfI(key, subKey, lst, list(key))
-            print(nxt)
+
             prev = min (nxt, prev)
     return prev
 
@@ -16,9 +16,11 @@ def maxOfI(cur, end, gr, seq):
         if(i in seq):
             continue
         if(i == end):
+            #1A
             amount = len(seq) + 1
             prev = max(prev, amount)
-        else:            
+        else: 
+            #B          
             seq.append(i) 
             prev = max(prev, maxOfI(i, end, gr, seq))
     return prev        
@@ -31,3 +33,4 @@ lst = {"a": ("b", "c"),
         "f" : ("c", "e"),
         "g" : ("b", "d")}
 print(forall(lst))
+print(maxOfI("a", "b", lst, ["a"]))

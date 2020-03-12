@@ -110,25 +110,42 @@
         (forEach (unRepid forks seq) (function (lambda (x) (derect seq gr amount prev x))))
 )
 
-(defun acab (derect seq gr amount cur next)
+(defun MyForMax (cur end gr seq &OPTIONAL (prev 0))
+    (max (forCycle1 
+        (getNode cur gr) (function (lambda (i) (maxOfI i end gr seq))) gr
+    ) prev )
+)
+
+(defun forCycle1 (seq func gr &OPTIONAL (amount 0))
     (cond
-        ((EQL (UNCAR seq) derect)
-            (+ amount 1)
+        ((NULL (car seq))
+            amount
         )
         (T
-            (gogo (append seq cur) gr derect (+ amount 1) (getNode next))
+            (max (forCycle1 (cdr seq) func gr (funcall func (car seq))) amount)
         )
 
     )
 )
-(defun forEach (seq func)
-    (cond 
-        ((NULL (car seq))
-            
+
+(defun maxOfI(cur end node seq)
+    (cond
+        ((isIn cur seq)
+            0
         )
-        
+        ((EQL cur end)
+            (myCount seq)
+        )
+        (T
+            (MyForMax (car node) end gr (append seq (car node)) (myCount (append seq (car node))))
+        )
     )
 )
+
+;; (trace forCycle1)
+;; (trace maxOfI)
+;; (trace MyForMax)
+(print (MyForMax 'A 'B gr '(A)))
 
 ;; ;; (defun degree (deCon graph)
 ;; ;;     (cond
