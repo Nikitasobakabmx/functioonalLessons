@@ -1,6 +1,6 @@
 (setq gr '(
         (A (B C))
-        (B (A B C D G))
+        (B (A C D G))
         (C (A B D E F))
         (D (B C E G))
         (E (C D F))
@@ -110,10 +110,10 @@
 
 ;; maxOfI
 (defun start (begin end gr seq)
-    (forEach (unRepid (getNode begin gr) seq) (function (lambda (i)(conditions i end gr seq))))
+    (forEach (unRepid (getNode begin gr) seq) (function (lambda (i)(myconditions i end gr seq))) (function max ))
 )
 
-(defun conditions (begin end gr seq)
+(defun myconditions (begin end gr seq)
     (cond
         ((EQL begin end)
             (myCount seq)
@@ -127,7 +127,7 @@
     )
 )
 
-(defun forEach (seq func)
+(defun forEach (seq func &OPTIONAL (minMaxFun (function max) ))
     (cond
         ((ATOM seq)
             (funcall func seq)
@@ -136,13 +136,48 @@
             (funcall func (car seq))
         )
         (T
-            (max (forEach (cdr seq) func) (funcall func (car seq)))
+            (funcall minMaxFun (forEach (cdr seq) func minMaxFun) (funcall func (car seq)))
         )
     )
 )
+
+(defun pureNodes (graph)
+	(cond 
+		((NULL (car graph))
+			nil
+		)
+		(T
+		 	(cons (caar graph) (pureNodes (cdr graph)))
+		)
+	)
+)
+
+(print (cons '(pureNodes) (pureNodes gr)))
+(defun __init__ (graph)
+	(forEach 
+	  (pureNodes graph) 
+	  (function
+	    	(lambda (i) (ForEach 
+			      	(pureNodes (snatch graph i))
+				(function(lambda (k) 
+					(start 
+					  	i 
+						k 
+						graph 
+						(cons i nil)
+					)
+				))
+				(function min)
+		)
+		)
+	   ) 
+	   (function min)
+	   )
+)
 ;; // maxOfI
-(trace start)
-(trace unRepid)
-(trace forEach)
-(trace conditions)
-(print (start 'A 'B gr '(A)))
+;; (trace start)
+;;(trace unRepid)
+;;(trace forEach)
+;;(trace start)
+;;(print (start 'A 'B gr '(A)))
+(print (cons '(__init__) (__init__ gr)))
