@@ -1,0 +1,10 @@
+(setq gr '(
+        (A (B C))
+        (B (A C D G))
+        (C (A B D E F))
+        (D (B C E G))
+        (E (C D F))
+        (F (C E))
+        (G (B D))
+    )
+)
