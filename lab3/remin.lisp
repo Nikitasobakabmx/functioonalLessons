@@ -207,3 +207,18 @@
 
 (print (find_min (start)))
 
+
+        ;; date
+        DAY 
+        MONTH
+        YEAR
+        ;; time
+        MINUTE
+        HOUR
+        ;; 
+        COMPANY
+        FROM
+        TO
+        COST
+        ID
+        (foreach seq (FUNCTION clear_out))
