@@ -126,12 +126,11 @@
             9999
         )
         (T
-            (min  (cdar weight_list) (find_min (cdr weight_list)))
+            (min (cdar weight_list) (find_min (cdr weight_list)))
         )
     )
 )
-
-;; (defun mysecond (graph ))
+;; (A B) (A C) ...
 (defun myfirst (nodeSeq cur seq)
     (cond 
         ((NULL (cdr nodeSeq))
@@ -143,6 +142,8 @@
     )
 )
 
+
+;; ((A B) (B C) ...)
 (defun mysecond (graph  &OPTIONAL(seq nil))
     (cond
         ((NULL (cdr graph))
@@ -165,6 +166,8 @@
     )
 )
 
+
+;; ()
 (defun for_pair (pair_seq &OPTIONAL(func (function wisdom_of_ancient)))
     (cond 
         ((NULL pair_seq) nil )
@@ -201,5 +204,6 @@
 ;; (trace for_pair)
 ;; (trace isIn)
 (print (start))
+
 (print (find_min (start)))
 
